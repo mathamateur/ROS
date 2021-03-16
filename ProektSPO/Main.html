@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>EyeBeat</title>
+	<link rel="stylesheet" href="CSS/style.css">
+	<link rel="icon" href="images/eye.png">
+	<link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@300&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Recursive:wght@600&display=swap" rel="stylesheet">
+	<script src="script.js"></script>
+</head>
+
+<body background="images/background.jpg">
+
+	<div id="popup" class="hidden">
+	</div>
+
+	<div id="op">
+	<!--Менюшка-->
+		<div class="hamburger-menu">
+	  		<input id="menu__toggle" type="checkbox" />
+	  		<label class="menu__btn" for="menu__toggle">
+	    		<span></span>
+	  		</label>
+	  		<ul class="menu__box">
+	    		<li><a class="menu__item" href="#">Главная</a></li>
+	    		<li><a class="menu__item" href="#">Проекты</a></li>
+	    		<li><a class="menu__item" href="#">Команда</a></li>
+	    		<li><a class="menu__item" href="#">Блог</a></li>
+	    		<li><a class="menu__item" href="#">Контакты</a></li>
+	  		</ul>
+		</div>
+
+	<!--Кнопки-->
+		<div class="buttons">
+			<a href="EyeTracker.html"><input type="button" name="beat-button" class="button"  value="Beat"></a>
+				<input type="button" name="play-button" class="button" onClick='viewDiv()' value="Play">
+				<!-- <button class="button" onClick='location.href="EyeTracker.html"' >Beat</button> -->
+				<!-- <button class="button" value="Click" onmousedown="viewDiv()">Play</button> -->
+		</div>
+
+	<!--Панель выбора-->
+		<p class="choose-panel-label">Make your melody</p>
+
+		<div class="choose-panel">
+			<table>
+				<tr>
+					<td>
+						<label>
+							<input type="checkbox" name="Hi-Hat">
+							Drums
+						</label>
+					</td>
+
+					<td>
+						<label>
+							<input type="checkbox" name="Hi-Hat">
+							Hi-Hat
+						</label>
+					</td>
+
+					<td>
+						<label>
+							<input type="checkbox" name="Hi-Hat">
+							Bass
+						</label>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+	<!--Кнопка-->
+		<div class="buttons">
+			<input type="button canvas-button" name="show-button" class="button" onClick='' value="Show harmonic canvas">
+				<!-- <button class="canvas-button">Show harmonic canvas</button> -->
+		</div>
+	</div>
+</body>
