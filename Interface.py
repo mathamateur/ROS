@@ -8,7 +8,7 @@ class Interface(QWidget):
     def __init__(self):
         super().__init__()
         
-        
+        #play and beat buttons
         self.play_button = QPushButton(self)
         self.play_button.setText("Play")
         self.play_button.setFont(QFont('Comic Sans MS', 15))
@@ -23,6 +23,7 @@ class Interface(QWidget):
         self.buttons_hbox.addWidget(self.beat_button, 0, Qt.AlignLeft)
         self.buttons_hbox.addWidget(self.play_button, 0, Qt.AlignRight)
         
+        #label Make your melody
         self.ins_label = QLabel()
         self.ins_label.setText("Make your melody")
         self.ins_label.setFont(QFont('Comic Sans MS', 30))
@@ -31,47 +32,30 @@ class Interface(QWidget):
         
         #check-boxes
         self.drums_cb = QCheckBox()
-        
-        self.drums_label = QLabel()
-        self.drums_label.setText("Drums")
-        self.drums_label.setFont(QFont('Comic Sans MS', 20))
-        
-        self.d_vbox = QVBoxLayout()
-        self.d_vbox.addWidget(self.drums_label)
-        self.d_vbox.addWidget(self.drums_cb)
+        self.drums_cb.setText("Drums")
+        self.drums_cb.setFont(QFont('Comic Sans MS', 20))
         
         self.hihat_cb = QCheckBox()
-        
-        self.hihat_label = QLabel()
-        self.hihat_label.setText("Hi-Hat")
-        self.hihat_label.setFont(QFont('Comic Sans MS', 20))
-        
-        self.h_vbox = QVBoxLayout()
-        self.h_vbox.addWidget(self.hihat_label)
-        self.h_vbox.addWidget(self.hihat_cb)
+        self.hihat_cb.setText("Hi-Hat")
+        self.hihat_cb.setFont(QFont('Comic Sans MS', 20))
         
         self.bass_cb = QCheckBox()
-        
-        self.bass_label = QLabel()
-        self.bass_label.setText("Bass")
-        self.bass_label.setFont(QFont('Comic Sans MS', 20))
-        
-        self.b_vbox = QVBoxLayout()
-        self.b_vbox.addWidget(self.bass_label)
-        self.b_vbox.addWidget(self.bass_cb)
+        self.bass_cb.setText("Bass")
+        self.bass_cb.setFont(QFont('Comic Sans MS', 20))
         
         self.cbs_hbox = QHBoxLayout()
-        self.cbs_hbox.addLayout(self.d_vbox)
-        self.cbs_hbox.addLayout(self.h_vbox)
-        self.cbs_hbox.addLayout(self.b_vbox)
-        self.cbs_hbox.setAlignment(Qt.AlignCenter)
+        self.cbs_hbox.addWidget(self.drums_cb, 0, Qt.AlignLeft)
+        self.cbs_hbox.addWidget(self.hihat_cb, 0, Qt.AlignCenter)
+        self.cbs_hbox.addWidget(self.bass_cb, 0, Qt.AlignRight)
         
+        #harmonic canvas button
         self.harm_button = QPushButton(self)
         self.harm_button.setText("Show harmonic canvas")
         self.harm_button.setFont(QFont('Comic Sans MS', 15))
         self.harm_button.resize(200, 50)
         self.harm_button.clicked.connect(self.harm)
         
+        #Main widget
         self.main_vbox = QVBoxLayout()
         self.main_vbox.addLayout(self.buttons_hbox)
         self.main_vbox.addWidget(self.ins_label)
@@ -79,8 +63,7 @@ class Interface(QWidget):
         self.main_vbox.addWidget(self.harm_button, 0, Qt.AlignCenter)
         self.main_vbox.setContentsMargins(100, 50, 100, 50)
         
-        
-        
+        #Main window settings
         self.setLayout(self.main_vbox)
         self.resize(700, 500)
         self.setWindowTitle('EyE_BeaT')
