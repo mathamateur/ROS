@@ -4,7 +4,18 @@ import cv2
 import dlib
 from .eye import Eye
 from .calibration import Calibration
+import numpy as np
 
+def landmarks_to_np(landmarks, dtype="int"):
+    
+    # initialize the list of (x, y)-coordinates
+    coords = np.zeros((68, 2), dtype=dtype)
+    # loop over the 68 facial landmarks and convert them
+    # to a 2-tuple of (x, y)-coordinates
+    for i in range(0, 68):
+        coords[i] = (landmarks.part(i).x, landmarks.part(i).y)
+    # return the list of (x, y)-coordinates
+    return coords
 
 class GazeTracking(object):
     """
@@ -46,8 +57,9 @@ class GazeTracking(object):
 
         try:
             landmarks = self._predictor(frame, faces[0])
-            self.eye_left = Eye(frame, landmarks, 0, self.calibration)
-            self.eye_right = Eye(frame, landmarks, 1, self.calibration)
+            np_landmarks = landmarks_to_np(landmarks) # my added for geting eye_cordinates
+            self.eye_left = Eye(frame, landmarks, 0, self.calibration, E_cords = np_landmarks[39])
+            self.eye_right = Eye(frame, landmarks, 1, self.calibration, E_cords = np_landmarks[42])
 
         except IndexError:
             self.eye_left = None

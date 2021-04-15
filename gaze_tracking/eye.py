@@ -13,11 +13,13 @@ class Eye(object):
     LEFT_EYE_POINTS = [36, 37, 38, 39, 40, 41]
     RIGHT_EYE_POINTS = [42, 43, 44, 45, 46, 47]
 
-    def __init__(self, original_frame, landmarks, side, calibration):
+    def __init__(self, original_frame, landmarks, side, calibration, E_cords):
         self.frame = None
         self.origin = None
         self.center = None
         self.pupil = None
+
+        self.cods = E_cords # my added for geting eye_cordinates
 
         self._analyze(original_frame, landmarks, side, calibration)
 
