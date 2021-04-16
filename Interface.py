@@ -90,5 +90,8 @@ app = QApplication(sys.argv)
 app.lastWindowClosed.connect(quit)
 w = Interface()
 app.exec_()
-#import Trecker_with6acord
-        
+import Trecker_with6acord
+
+
+
+

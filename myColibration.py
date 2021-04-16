@@ -11,7 +11,7 @@ def text_objects(text, font):
 
 def getFrameCords(s_w,s_h):
     pygame.init()
-    screen = pygame.display.set_mode([s_w,s_h])
+    screen = pygame.display.set_mode([s_w,s_h]) # [s_w,s_h]
     screen.fill([255,255,255])
     '''
     x = 200
@@ -21,10 +21,12 @@ def getFrameCords(s_w,s_h):
     '''
     running = True
     k = 0
-    points_s = [[s_w/2,s_h/2],[s_w/2,0],[s_w,0],[s_w,s_h/2],[s_w,s_h],[s_w/2,s_h],[0,s_h],[0,s_h/2],[0,0]]
+    points_s = [[s_w/2,s_h/2],[s_w/2,0],[s_w,s_h/2],[s_w/2,s_h],[0,s_h/2]]
     points_f = []
     S_of_point_f = []
 
+    eye_cords_when_looking_on_centre = []
+    
     gaze = GazeTracking()
     webcam = cv2.VideoCapture(0)
 
@@ -60,6 +62,10 @@ def getFrameCords(s_w,s_h):
             i = 0
             x_f = []
             y_f = []
+
+            x_c = []
+            y_c = []
+            
             flag1 = False
             while i < 20:
                 pygame.time.delay(20)
@@ -78,6 +84,13 @@ def getFrameCords(s_w,s_h):
                 if flag1 and right_pupil != None and left_pupil != None:
                     x_f.append((right_pupil[0] + left_pupil[0]) / 2)
                     y_f.append((right_pupil[1] + left_pupil[1]) / 2)
+
+                    if k == 0: # when looking on centre
+                        left_eye = gaze.eye_left
+                        right_eye = gaze.eye_right
+                        if left_eye != None and right_eye != None:
+                            x_c.append((left_eye.cods[0] + right_eye.cods[0])/2)
+                            y_c.append((left_eye.cods[1] + right_eye.cods[1])/2)
                     
                     i += 1
             
@@ -86,7 +99,9 @@ def getFrameCords(s_w,s_h):
             pygame.draw.circle(screen,[255,255,255],p,15,0)
             pygame.display.flip() 
             
-
+            if k == 0: # when looking on centre
+                eye_cords_when_looking_on_centre = [sum(x_c)/len(x_c),sum(y_c)/len(y_c)]
+            
             k += 1
         if k >= len(points_s):
             break
@@ -95,5 +110,7 @@ def getFrameCords(s_w,s_h):
     cv2.destroyAllWindows() 
     webcam.release()
     pygame.quit()
+
+    points_f.append(eye_cords_when_looking_on_centre)
 
     return points_f
