@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont, QImage, QPalette, QBrush
 import sys
+import Trecker_with6acord as tw
 
 
 class Interface(QWidget):
@@ -84,14 +85,10 @@ class Interface(QWidget):
         
     def harm(self):
         self.close()
-    
+        tw.main()
+        self.show()
+
     
 app = QApplication(sys.argv)        
-app.lastWindowClosed.connect(quit)
 w = Interface()
 app.exec_()
-import Trecker_with6acord
-
-
-
-

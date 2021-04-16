@@ -9,10 +9,11 @@ from gaze_tracking import GazeTracking
 
 #vid.set(cv2.CAP_PROP_FPS, 25)
 
-s_w = 1910
-s_h = 960
 def main():
     # colibr
+    s_w = 1910
+    s_h = 960
+
     points_f = getFrameCords(s_w,s_h) 
 
     X = []
@@ -170,4 +171,6 @@ def main():
     cv2.destroyAllWindows() 
     webcam.release()
 
-main()
+
+if __name__ == "__main__":
+    main()
