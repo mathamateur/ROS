@@ -7,12 +7,32 @@ import numpy as np
 import cv2
 from gaze_tracking import GazeTracking
 
+
+from gi import require_version
+require_version("Gdk", "3.0")
+from gi.repository import Gdk
+
+def get_screen_size(display):
+    mon_geoms = [
+        display.get_monitor(i).get_geometry()
+        for i in range(display.get_n_monitors())
+    ]
+
+    x0 = min(r.x            for r in mon_geoms)
+    y0 = min(r.y            for r in mon_geoms)
+    x1 = max(r.x + r.width  for r in mon_geoms)
+    y1 = max(r.y + r.height for r in mon_geoms)
+
+    return x1 - x0, y1 - y0
+
+
 #vid.set(cv2.CAP_PROP_FPS, 25)
 
 def main():
     # colibr
-    s_w = 1910
-    s_h = 960
+    (s_w, s_h) = get_screen_size(Gdk.Display.get_default())
+    #s_w = 1910
+    #s_h = 960
 
     points_f = getFrameCords(s_w,s_h) 
 
@@ -153,7 +173,12 @@ def main():
             '''
 
             j += 1
-
+        ###
+        rect_x = f_c[0] + x_d - (frame.shape[1]/f_w)/2
+        rect_y = f_c[1] + y_d - (frame.shape[0]/f_h)/2
+        cv2.rectangle(frame, (round(rect_x), round(rect_y)), (round(rect_x + frame.shape[1]/f_w), round(rect_y + frame.shape[0]/f_h)), (36,255,12), 1)
+        cv2.blur(frame,(5,5))
+        ###
         resized_frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
 
         cords = drowLine(vert_lines[0],"vert",s_h)
