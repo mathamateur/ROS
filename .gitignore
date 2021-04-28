@@ -1,0 +1,5 @@
+*.ipynb
+*.pyc
+*.fig
+README.md
+__pycache__/
