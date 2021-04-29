@@ -2,4 +2,6 @@
 *.pyc
 *.fig
 README.md
+example.py
+exampleCV2.py
 __pycache__/
