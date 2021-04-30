@@ -155,7 +155,7 @@ def main():
             if x < 0:
                 x = 10
             if y > frame.shape[0]:
-                y = frame.shape[0]-10
+                y = frame.shape[0] - 10
             if y < 0:
                 y = 10
 
