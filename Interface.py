@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont, QImage, QPalette, QBrush
 import sys
 import Trecker_with6acord as tw
+import Blinking_count as bc
 
 
 class Interface(QWidget):
@@ -15,11 +16,13 @@ class Interface(QWidget):
         self.play_button.setFont(QFont('Comic Sans MS', 15))
         self.play_button.resize(100, 50)
         
+        self.freq = 0
         self.beat_button = QPushButton(self)
         self.beat_button.setText("Beat")
         self.beat_button.setFont(QFont('Comic Sans MS', 15))
         self.beat_button.resize(100, 50)
-        
+        self.beat_button.clicked.connect(self.count_blinks)
+
         self.buttons_hbox = QHBoxLayout()
         self.buttons_hbox.addWidget(self.beat_button, 0, Qt.AlignLeft)
         self.buttons_hbox.addWidget(self.play_button, 0, Qt.AlignRight)
@@ -82,11 +85,20 @@ class Interface(QWidget):
         self.move(frameGm.topLeft())
 
     def harm(self):
-        self.close()
+        # self.hide()
         tw.main()
+        # self.show()
+
+    def count_blinks(self):
+        self.hide()
+        self.freq = bc.blink()
+        msg = QMessageBox()
+        msg.setText(f'Вы моргнули {self.freq} раз.')
+        msg.setWindowTitle('Blinks')
+        msg.exec_()
         self.show()
 
-    
+
 app = QApplication(sys.argv)        
 w = Interface()
 app.exec_()

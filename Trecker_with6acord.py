@@ -42,8 +42,8 @@ def main():
         X.append(points_f[i][0])
         Y.append(points_f[i][1])
 
-    plt.scatter(X,Y)
-    plt.show()
+    # plt.scatter(X,Y)
+    # plt.show()
 
 
     f_w = points_f[4][0] - points_f[2][0]
@@ -121,7 +121,6 @@ def main():
 
         left_eye = gaze.eye_left
         right_eye = gaze.eye_right 
-        
         if right_pupil != None and left_pupil != None and left_eye != None and right_eye != None:
                 
             x_of_pupils = (right_pupil[0] + left_pupil[0]) / 2
@@ -173,12 +172,12 @@ def main():
             '''
 
             j += 1
-        ###
+        '''
         rect_x = f_c[0] + x_d - (frame.shape[1]/f_w)/2
         rect_y = f_c[1] + y_d - (frame.shape[0]/f_h)/2
         cv2.rectangle(frame, (round(rect_x), round(rect_y)), (round(rect_x + frame.shape[1]/f_w), round(rect_y + frame.shape[0]/f_h)), (36,255,12), 1)
         cv2.blur(frame,(5,5))
-        ###
+        '''
         resized_frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
 
         cords = drowLine(vert_lines[0],"vert",s_h)

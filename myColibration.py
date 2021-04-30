@@ -21,7 +21,8 @@ def getFrameCords(s_w,s_h):
     '''
     running = True
     k = 0
-    points_s = [[s_w/2,s_h/2],[s_w/2,0],[s_w,s_h/2],[s_w/2,s_h],[0,s_h/2]]
+    points_s = [[s_w/2, s_h/2], [s_w/2, 15],
+            [s_w - 15, s_h/2], [s_w/2, s_h - 100], [15, s_h/2]]
     points_f = []
     S_of_point_f = []
 
@@ -51,7 +52,7 @@ def getFrameCords(s_w,s_h):
 
             #==================
             largeText = pygame.font.Font('freesansbold.ttf',40)
-            TextSurf, TextRect = text_objects("Посмотрите на точку и нажмите на кнопку.", largeText)
+            TextSurf, TextRect = text_objects("Посмотрите на точку и нажмите левую кнопку мыши.", largeText)
             TextRect.center = ((s_w/2),(s_h/2-60))
             screen.blit(TextSurf, TextRect)
             #==================
@@ -95,7 +96,8 @@ def getFrameCords(s_w,s_h):
                     i += 1
             
             points_f.append([sum(x_f)/len(x_f),sum(y_f)/len(y_f)])
-            S_of_point_f.append(((np.std(np.array(x_f).reshape((len(x_f),1))))**2 + (np.std(np.array(y_f).reshape((len(y_f),1))))**2)**0.5)
+            S_of_point_f.append(((np.std(np.array(x_f).reshape((len(x_f),1))))**2 +
+                                 (np.std(np.array(y_f).reshape((len(y_f),1))))**2)**0.5)
             pygame.draw.circle(screen,[255,255,255],p,15,0)
             pygame.display.flip() 
             
