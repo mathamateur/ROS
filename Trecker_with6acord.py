@@ -1,16 +1,15 @@
-
 from myColibration import getFrameCords
-
 import pygame, sys
 import matplotlib.pylab as plt
 import numpy as np
 import cv2
 from gaze_tracking import GazeTracking
-
-
+from playsound import playsound
 from gi import require_version
 require_version("Gdk", "3.0")
 from gi.repository import Gdk
+import os
+
 
 def get_screen_size(display):
     mon_geoms = [
@@ -27,6 +26,18 @@ def get_screen_size(display):
 
 
 #vid.set(cv2.CAP_PROP_FPS, 25)
+def domain(x, y, s_w, s_h):
+    if x < s_w / 3:
+        return 0 if y < s_h / 2 else 3
+    if s_w / 3 < x < s_w * 2 / 3:
+        return 1 if y < s_h / 2 else 4
+    if x > s_w * 2 / 3:
+        return 2 if y < s_h / 2 else 5
+def play_chord(n):
+    chords = os.listdir('beats')
+    with open('output.txt', 'w') as fw:
+        fw.write(str(n))
+
 
 def main():
     # colibr
@@ -104,7 +115,8 @@ def main():
     y_f_k = 0
     j = 0
     #kalman
-
+    prev_domain = 1
+    cur_domain = 1
     while True:
         # We get a new frame from the webcam
         _, frame = webcam.read()
@@ -158,6 +170,11 @@ def main():
                 y = frame.shape[0] - 10
             if y < 0:
                 y = 10
+            cur_domain = domain(x, y, frame.shape[1], frame.shape[0])
+            print(cur_domain)
+            if cur_domain != prev_domain:
+                pass               # play_chord(cur_domain)
+            prev_domain = cur_domain
 
             cv2.circle(frame, (round(x),round(y)), 10, (0,0,255), -1)
 
