@@ -17,7 +17,7 @@ def blink():
     cv2.setMouseCallback("image", click)
     k = 0
     t1 = 0
-    while True:
+    while cv2.getWindowProperty("image", cv2.WND_PROP_VISIBLE) == 1:
         _, frame = webcam.read()
         gaze.refresh(frame)
 

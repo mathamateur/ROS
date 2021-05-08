@@ -1,10 +1,10 @@
-from myColibration import getFrameCords
-import pygame, sys
+from colibrationWithCV import getInhabitationOfPupilsWhenLookingOnScreen
+
 import matplotlib.pylab as plt
 import numpy as np
 import cv2
 from gaze_tracking import GazeTracking
-from playsound import playsound
+#from playsound import playsound
 from gi import require_version
 require_version("Gdk", "3.0")
 from gi.repository import Gdk
@@ -42,20 +42,21 @@ def play_chord(n):
 def main():
     # colibr
     (s_w, s_h) = get_screen_size(Gdk.Display.get_default())
-    #s_w = 1910
-    #s_h = 960
+    s_w = 1910
+    s_h = 960
 
-    points_f = getFrameCords(s_w,s_h) 
+    points_f = getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h)
 
+    # if len(points_f) == 5:
+        
     X = []
     Y = []
     for i in range(len(points_f)-1):
         X.append(points_f[i][0])
         Y.append(points_f[i][1])
 
-    # plt.scatter(X,Y)
-    # plt.show()
-
+    plt.scatter(X,Y)
+    plt.show()
 
     f_w = points_f[4][0] - points_f[2][0]
     f_h = points_f[3][1] - points_f[1][1]
@@ -106,6 +107,7 @@ def main():
 
     #treck
     gaze = GazeTracking()
+    cv2.namedWindow("Treking")
     webcam = cv2.VideoCapture(0)
     #treck
 
@@ -117,7 +119,8 @@ def main():
     #kalman
     prev_domain = 1
     cur_domain = 1
-    while True:
+    while cv2.getWindowProperty("Treking", cv2.WND_PROP_VISIBLE) == 1:
+        #print(cv2.getWindowProperty("Treking", cv2.WND_PROP_VISIBLE))
         # We get a new frame from the webcam
         _, frame = webcam.read()
 
@@ -170,8 +173,9 @@ def main():
                 y = frame.shape[0] - 10
             if y < 0:
                 y = 10
+                
             cur_domain = domain(x, y, frame.shape[1], frame.shape[0])
-            print(cur_domain)
+            #print(cur_domain)
             if cur_domain != prev_domain:
                 pass               # play_chord(cur_domain)
             prev_domain = cur_domain
@@ -204,7 +208,7 @@ def main():
         cords = drowLine(hor_lines[0],"hor",s_w)
         cv2.line(resized_frame, cords[0], cords[1], [0,0,0])
 
-        cv2.imshow("Demo", resized_frame)
+        cv2.imshow("Treking", resized_frame)
 
         if cv2.waitKey(1) == 27:
             break
