@@ -166,13 +166,13 @@ def main():
             [x, y] = [((frame.shape[1] - (x_of_pupils_k - (f_c[0] + x_d))*frame.shape[1]/f_w) - frame.shape[1]/2), ((y_of_pupils_k - (f_c[1] + y_d))*frame.shape[0]/f_h) + frame.shape[0]/2]
 
             if x > frame.shape[1]:
-                x = frame.shape[1] - 10
+                x = frame.shape[1] - 40
             if x < 0:
-                x = 10
+                x = 40
             if y > frame.shape[0]:
-                y = frame.shape[0] - 10
+                y = frame.shape[0] - 40
             if y < 0:
-                y = 10
+                y = 40
                 
             cur_domain = domain(x, y, frame.shape[1], frame.shape[0])
             #print(cur_domain)
@@ -180,7 +180,27 @@ def main():
                 pass               # play_chord(cur_domain)
             prev_domain = cur_domain
 
-            cv2.circle(frame, (round(x),round(y)), 10, (0,0,255), -1)
+            #cv2.circle(frame, (round(x),round(y)), 10, (0,0,255), -1)
+            #print([[x,y],[frame.shape[1],frame.shape[0]]])
+            #################### effect
+            xg = round(x)
+            yg = round(y)
+            r = 10
+            alfa = 1000
+            betha = 600
+            for i in range(xg-r,xg+r+1,2):
+                for j in range(yg-r,yg+r+1,2):
+                    if i < frame.shape[1] and j < frame.shape[0]:
+                        er = ((i-xg)**2 + (j-yg)**2)**0.5
+                        if er == 0:
+                            er = 0.0001
+                        if er <= r:
+                            [b,g,red] = frame[j][i].copy()
+                            frame[j][i][0] = b
+                            frame[j][i][1] = alfa*er + g
+                            frame[j][i][2] = (betha/er)+ red
+
+            #################### effect
 
             cv2.circle(frame, (round(f_c[0] + x_d),round(f_c[1] + y_d)), 5, (0,255,0), 2)
 
@@ -200,7 +220,7 @@ def main():
         cv2.blur(frame,(5,5))
         '''
         resized_frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
-
+        
         cords = drowLine(vert_lines[0],"vert",s_h)
         cv2.line(resized_frame, cords[0], cords[1], [0,0,0])
         cords = drowLine(vert_lines[1],"vert",s_h)
