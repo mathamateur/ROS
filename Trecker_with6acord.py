@@ -1,14 +1,15 @@
 from colibrationWithCV import getInhabitationOfPupilsWhenLookingOnScreen
 
-import matplotlib.pylab as plt
-import numpy as np
+import os
 import cv2
+import numpy as np
+import matplotlib.pylab as plt
 from gaze_tracking import GazeTracking
-#from playsound import playsound
 from gi import require_version
 require_version("Gdk", "3.0")
 from gi.repository import Gdk
-import os
+from pydub import AudioSegment
+from pydub.playback import play
 
 
 def get_screen_size(display):
@@ -25,7 +26,7 @@ def get_screen_size(display):
     return x1 - x0, y1 - y0
 
 
-#vid.set(cv2.CAP_PROP_FPS, 25)
+# vid.set(cv2.CAP_PROP_FPS, 25)
 def domain(x, y, s_w, s_h):
     if x < s_w / 3:
         return 0 if y < s_h / 2 else 3
@@ -33,11 +34,13 @@ def domain(x, y, s_w, s_h):
         return 1 if y < s_h / 2 else 4
     if x > s_w * 2 / 3:
         return 2 if y < s_h / 2 else 5
-def play_chord(n):
-    chords = os.listdir('beats')
-    with open('output.txt', 'w') as fw:
-        fw.write(str(n))
 
+
+def play_chord(n, list_audio):
+    chords = os.listdir('mp3_chords')
+    s = AudioSegment.from_mp3(f'mp3_chords/{chords[n]}')
+    list_audio.append(s)
+    play(s)
 
 def main():
     # colibr
@@ -63,7 +66,7 @@ def main():
 
     f_c = points_f[0]
 
-    #f_c = [((points_f[4][0] + points_f[2][0])/2 + f_c_1[0])/2, ((points_f[3][1] + points_f[1][1])/2 + f_c_1[1])]
+    # f_c = [((points_f[4][0] + points_f[2][0])/2 + f_c_1[0])/2, ((points_f[3][1] + points_f[1][1])/2 + f_c_1[1])]
 
     eye_cords_when_looking_on_centre = points_f[5]
     # colibr
@@ -103,28 +106,29 @@ def main():
             print("not hor not vert")
             return 0
         
-        return [(x1,y1),(x2,y2)]
+        return [(x1, y1), (x2, y2)]
 
-    #treck
+    # treck
     gaze = GazeTracking()
     cv2.namedWindow("Treking")
     webcam = cv2.VideoCapture(0)
-    #treck
+    #t reck
 
-    #kalman
+    # kalman
     K = 0.1
     x_f_k = 0
     y_f_k = 0
     j = 0
-    #kalman
+    # kalman
     prev_domain = 1
     cur_domain = 1
+    list_audio = []
     while cv2.getWindowProperty("Treking", cv2.WND_PROP_VISIBLE) == 1:
-        #print(cv2.getWindowProperty("Treking", cv2.WND_PROP_VISIBLE))
+        # print(cv2.getWindowProperty("Treking", cv2.WND_PROP_VISIBLE))
         # We get a new frame from the webcam
         _, frame = webcam.read()
 
-        #frame = imutils.resize(frame, width=1910, height = 1015)
+        # frame = imutils.resize(frame, width=1910, height = 1015)
 
         # We send this frame to GazeTracking to analyze it
         gaze.refresh(frame)
@@ -136,7 +140,7 @@ def main():
 
         left_eye = gaze.eye_left
         right_eye = gaze.eye_right 
-        if right_pupil != None and left_pupil != None and left_eye != None and right_eye != None:
+        if right_pupil is not None and left_pupil is not None and left_eye is not None and right_eye is not None:
                 
             x_of_pupils = (right_pupil[0] + left_pupil[0]) / 2
             y_of_pupils = (right_pupil[1] + left_pupil[1]) / 2
@@ -163,7 +167,8 @@ def main():
             x_d = (x_of_eyes_k - eye_cords_when_looking_on_centre[0])
             y_d = (y_of_eyes_k - eye_cords_when_looking_on_centre[1])
             
-            [x, y] = [((frame.shape[1] - (x_of_pupils_k - (f_c[0] + x_d))*frame.shape[1]/f_w) - frame.shape[1]/2), ((y_of_pupils_k - (f_c[1] + y_d))*frame.shape[0]/f_h) + frame.shape[0]/2]
+            [x, y] = [((frame.shape[1] - (x_of_pupils_k - (f_c[0] + x_d))*frame.shape[1]/f_w) - frame.shape[1]/2),
+                      ((y_of_pupils_k - (f_c[1] + y_d))*frame.shape[0]/f_h) + frame.shape[0]/2]
 
             if x > frame.shape[1]:
                 x = frame.shape[1] - 40
@@ -175,13 +180,13 @@ def main():
                 y = 40
                 
             cur_domain = domain(x, y, frame.shape[1], frame.shape[0])
-            #print(cur_domain)
+            # print(cur_domain)
             if cur_domain != prev_domain:
-                pass               # play_chord(cur_domain)
+                play_chord(cur_domain, list_audio)
             prev_domain = cur_domain
 
-            #cv2.circle(frame, (round(x),round(y)), 10, (0,0,255), -1)
-            #print([[x,y],[frame.shape[1],frame.shape[0]]])
+            # cv2.circle(frame, (round(x),round(y)), 10, (0,0,255), -1)
+            # print([[x,y],[frame.shape[1],frame.shape[0]]])
             #################### effect
             xg = round(x)
             yg = round(y)
@@ -219,18 +224,19 @@ def main():
         cv2.rectangle(frame, (round(rect_x), round(rect_y)), (round(rect_x + frame.shape[1]/f_w), round(rect_y + frame.shape[0]/f_h)), (36,255,12), 1)
         cv2.blur(frame,(5,5))
         '''
-        resized_frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
+        resized_frame = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
         
-        cords = drowLine(vert_lines[0],"vert",s_h)
-        cv2.line(resized_frame, cords[0], cords[1], [0,0,0])
-        cords = drowLine(vert_lines[1],"vert",s_h)
-        cv2.line(resized_frame, cords[0], cords[1], [0,0,0])
-        cords = drowLine(hor_lines[0],"hor",s_w)
-        cv2.line(resized_frame, cords[0], cords[1], [0,0,0])
+        cords = drowLine(vert_lines[0], "vert", s_h)
+        cv2.line(resized_frame, cords[0], cords[1], [0, 0, 0])
+        cords = drowLine(vert_lines[1], "vert", s_h)
+        cv2.line(resized_frame, cords[0], cords[1], [0, 0, 0])
+        cords = drowLine(hor_lines[0], "hor", s_w)
+        cv2.line(resized_frame, cords[0], cords[1], [0, 0, 0])
 
         cv2.imshow("Treking", resized_frame)
 
         if cv2.waitKey(1) == 27:
+            sum(list_audio).export('result.mp3', format='mp3')
             break
         
     cv2.destroyAllWindows() 
