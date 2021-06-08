@@ -19,6 +19,7 @@ class Interface(QWidget):
         self.play_button.resize(100, 50)
         
         self.freq = 0
+        self.const = 12
         self.beat_button = QPushButton(self)
         self.beat_button.setText("Beat")
         self.beat_button.setFont(QFont('Comic Sans MS', 15))
@@ -92,6 +93,7 @@ class Interface(QWidget):
         tw.main()
         # self.show()
 
+### Добавил функционал для наложения барабанов на трек.
     def set_drums(self):
         if  os.path.exists('result.mp3'):
             res = AudioSegment.from_mp3('result.mp3')
@@ -106,8 +108,19 @@ class Interface(QWidget):
             res_with_drums = res.overlay(whole_drums)
             res_with_drums.export('result_with_drums.mp3', format='mp3')
 
-
+### Добавил функционал для ускорения и замедления трека.
     def count_blinks(self):
+        def speed_change(sound, speed=1.0):
+            # Manually override the frame_rate. This tells the computer how many
+            # samples to play per second
+            sound_with_altered_frame_rate = sound._spawn(sound.raw_data, overrides={
+                 "frame_rate": int(sound.frame_rate * speed)
+              })
+             # convert the sound with altered frame rate to a standard frame rate
+             # so that regular playback programs will work right. They often only
+             # know how to play audio at standard frame rate (like 44.1k)
+            return sound_with_altered_frame_rate.set_frame_rate(sound.frame_rate)
+
         self.hide()
         self.freq = bc.blink()
         msg = QMessageBox()
@@ -117,6 +130,16 @@ class Interface(QWidget):
         self.show()
         with open('blinks.txt', 'w') as bf:
             bf.write(str(self.freq))
+        if os.path.exists('result_with_drums.mp3'):
+            rwd = AudioSegment.from_mp3('result_with_drums.mp3')
+            speed = self.freq / self.const
+            res = speed_change(rwd, speed)
+            res.export('result_with_drums_freq.mp3', format='mp3')
+        elif os.path.exists('result.mp3'):
+            r = AudioSegment.from_mp3('result.mp3')
+            speed = self.freq / self.const
+            res = speed_change(r, speed)
+            res.export('result_with_freq.mp3', format='mp3')
 
 
 app = QApplication(sys.argv)        
