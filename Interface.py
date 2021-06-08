@@ -1,7 +1,9 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont, QImage, QPalette, QBrush
+from pydub import AudioSegment
 import sys
+import os
 import Trecker_with6acord as tw
 import Blinking_count as bc
 
@@ -38,7 +40,8 @@ class Interface(QWidget):
         self.drums_cb = QCheckBox()
         self.drums_cb.setText("Drums")
         self.drums_cb.setFont(QFont('Comic Sans MS', 20))
-        
+        self.drums_cb.clicked.connect(self.set_drums)
+
         self.hihat_cb = QCheckBox()
         self.hihat_cb.setText("Hi-Hat")
         self.hihat_cb.setFont(QFont('Comic Sans MS', 20))
@@ -89,6 +92,21 @@ class Interface(QWidget):
         tw.main()
         # self.show()
 
+    def set_drums(self):
+        if  os.path.exists('result.mp3'):
+            res = AudioSegment.from_mp3('result.mp3')
+            res_len = res.duration_seconds
+            chord = AudioSegment.from_mp3('mp3_chords/1.mp3')
+            chord_len = chord.duration_seconds
+            len_in_chords = int(res_len / chord_len)
+            chord_len_ms = len(chord)
+            drums = AudioSegment.from_mp3('mp3_drums/beats3.mp3')
+            drums = drums[:chord_len_ms]
+            whole_drums = drums * len_in_chords
+            res_with_drums = res.overlay(whole_drums)
+            res_with_drums.export('result_with_drums.mp3', format='mp3')
+
+
     def count_blinks(self):
         self.hide()
         self.freq = bc.blink()
@@ -97,6 +115,8 @@ class Interface(QWidget):
         msg.setWindowTitle('Blinks')
         msg.exec_()
         self.show()
+        with open('blinks.txt', 'w') as bf:
+            bf.write(str(self.freq))
 
 
 app = QApplication(sys.argv)        
