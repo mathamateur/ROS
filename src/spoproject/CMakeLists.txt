@@ -161,7 +161,6 @@ include_directories(
 catkin_install_python(PROGRAMS
   scripts/talker.py
   scripts/listener.py
-  scripts/Blinking_count.py
   scripts/Interface.py
   scripts/Trecker_with6acord.py
   scripts/test_imp_nod.py

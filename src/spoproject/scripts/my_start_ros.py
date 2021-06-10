@@ -1,7 +1,3 @@
-
-bashCommand1 = "python listener.py"
-bashCommand2 = "python talker.py"
-
 from subprocess import *
 
 '''
@@ -20,11 +16,11 @@ def run(cmd, stdout, stderr):
 def start_process(cmd):
     return run(cmd, PIPE, PIPE)
 
+def start():
+    master = start_process(['/opt/ros/noetic/bin/roscore'])
 
-master = start_process(['/opt/ros/noetic/bin/roscore'])
+    listener_node = start_process(['python', 'listener.py'])
 
-listener_node = start_process(['python', 'listener.py'])
+    talker_node = start_process(['python', 'Trecker_with6acord.py'])
 
-talker_node = start_process(['python', 'talker.py'])
-
-talker_node.communicate()
+    talker_node.communicate()

@@ -13,6 +13,8 @@ def click(event, x, y, flags, param):
 
 
 def blink():
+    global start
+    start  = False
     gaze = GazeTracking()
     webcam = cv2.VideoCapture(0)
     cv2.namedWindow("image")

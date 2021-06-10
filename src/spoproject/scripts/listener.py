@@ -14,7 +14,7 @@ list_audio = []
 
 def play_chord(n):
     global list_audio
-    folder = '/home/radioon/catkin_ws/src/spoproject/scripts/mp3_chords'
+    folder = '/home/aleksandr/catkin_ws/src/spoproject/scripts/mp3_chords'
     chords = os.listdir(folder)
     file = folder + "/" + chords[n]
     s = AudioSegment.from_mp3(file)

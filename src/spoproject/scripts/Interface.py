@@ -1,13 +1,14 @@
-#!/usr/bin/env python
+#!/home/aleksandr/miniconda3/bin/python
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont, QImage, QPalette, QBrush
 from pydub import AudioSegment
+from pydub.playback import play
 import sys
 import os
-import Trecker_with6acord as tw
-import Blinking_count as bc
+import my_start_ros as msr
+from Blinking_count import blink
 
 
 class Interface(QWidget):
@@ -19,8 +20,9 @@ class Interface(QWidget):
         self.play_button.setText("Play")
         self.play_button.setFont(QFont('Comic Sans MS', 15))
         self.play_button.resize(100, 50)
-        
-        self.freq = 0
+        self.play_button.clicked.connect(self.play)
+
+        self.freq = 1
         self.const = 12
         self.beat_button = QPushButton(self)
         self.beat_button.setText("Beat")
@@ -91,9 +93,7 @@ class Interface(QWidget):
         self.move(frameGm.topLeft())
 
     def harm(self):
-        # self.hide()
-        tw.main()
-        # self.show()
+        msr.start()
 
 ### Добавил функционал для наложения барабанов на трек.
     def set_drums(self):
@@ -115,6 +115,8 @@ class Interface(QWidget):
         def speed_change(sound, speed=1.0):
             # Manually override the frame_rate. This tells the computer how many
             # samples to play per second
+            if speed <= 0:
+                speed = 1
             sound_with_altered_frame_rate = sound._spawn(sound.raw_data, overrides={
                  "frame_rate": int(sound.frame_rate * speed)
               })
@@ -124,7 +126,7 @@ class Interface(QWidget):
             return sound_with_altered_frame_rate.set_frame_rate(sound.frame_rate)
 
         self.hide()
-        self.freq = bc.blink()
+        self.freq = blink()
         msg = QMessageBox()
         msg.setText(f'Вы моргнули {self.freq} раз.')
         msg.setWindowTitle('Blinks')
@@ -143,6 +145,19 @@ class Interface(QWidget):
             res = speed_change(r, speed)
             res.export('result_with_freq.mp3', format='mp3')
 
+    def play(self):
+        m = None
+        if os.path.exists('result_with_drums_freq.mp3') and self.drums_cb.isChecked():
+            m = AudioSegment.from_mp3('result_with_drums_freq.mp3')
+        elif os.path.exists('result_with_drums.mp3') and self.drums_cb.isChecked():
+            m = AudioSegment.from_mp3('result_with_drums.mp3')
+        elif os.path.exists('result_with_freq.mp3'):
+            m = AudioSegment.from_mp3('result_with_freq.mp3')
+        elif os.path.exists('result.mp3'):
+            print(self.drums_cb.isChecked())
+            m = AudioSegment.from_mp3('result.mp3')
+        if m is not None:
+            play(m)
 
 app = QApplication(sys.argv)        
 w = Interface()
