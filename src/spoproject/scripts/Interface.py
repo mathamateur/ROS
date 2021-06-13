@@ -1,4 +1,4 @@
-#!/home/aleksandr/miniconda3/bin/python
+#!/usr/bin/env python
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
@@ -7,7 +7,7 @@ from pydub import AudioSegment
 from pydub.playback import play
 import sys
 import os
-import my_start_ros as msr
+import start_ros as msr
 from Blinking_count import blink
 
 
@@ -79,7 +79,7 @@ class Interface(QWidget):
         self.setLayout(self.main_vbox)
         self.resize(700, 500)
         self.setWindowTitle('EyE_BeaT')
-        oImage = QImage("ProektSPO/images/background.jpg")
+        oImage = QImage("images/background.jpg")
         palette = QPalette()
         palette.setBrush(QPalette.Window, QBrush(oImage))                        
         self.setPalette(palette)
@@ -154,7 +154,7 @@ class Interface(QWidget):
         elif os.path.exists('result_with_freq.mp3'):
             m = AudioSegment.from_mp3('result_with_freq.mp3')
         elif os.path.exists('result.mp3'):
-            print(self.drums_cb.isChecked())
+            #print(self.drums_cb.isChecked())
             m = AudioSegment.from_mp3('result.mp3')
         if m is not None:
             play(m)

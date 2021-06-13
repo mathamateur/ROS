@@ -1,6 +1,6 @@
 #!/usr/bin/env python
+
 import os
-print(os.getcwd())
 from gaze_tracking.gaze_tracking import GazeTracking
 import cv2
 import numpy as np
@@ -28,24 +28,17 @@ def getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h):
     
     
     cv2.namedWindow("Colibration") # cv2.WINDOW_KEEPRATIO
-    #cv2.resizeWindow("Colibration", s_w, s_h)
+    
     webcam = cv2.VideoCapture(0)
     cv2.setMouseCallback("Colibration", click)
 
     gaze = GazeTracking() # object that is used for gaze traking
-
-    '''
-    # points on screen where the object should look
-    points_s = [[s_w/2, s_h/2],  # center
-                [s_w/2, 15],     # top
-                [s_w-15, s_h/2], # right boundary
-                [s_w/2, s_h-15], # bottom
-                [15, s_h/2]]     # left boundary
-    '''
     
     points_f = [] # cords of domain that we are looking for
 
-    text = "Посмотрите на точку и нажмите на экран для начала определения взгляда."
+    text1 = "Let's pass through the calibration"
+    text2 = "Look at the red point and click on"
+    text3 = "the screen, please."
     
     k = 0 # counter of points
     i = 0 # counter of values to enumerait the coordinat of pupils when looking on concret point
@@ -59,9 +52,7 @@ def getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h):
     x_face_look_center = []
     y_face_look_center = []
     
-    while cv2.getWindowProperty("Colibration", cv2.WND_PROP_VISIBLE) == 1 and k < 5:
-        #print(cv2.getWindowProperty("Colibration", cv2.WND_PROP_VISIBLE))
-        
+    while cv2.getWindowProperty("Colibration", cv2.WND_PROP_VISIBLE) == 1 and k < 5:        
 
         _, frame = webcam.read()
         
@@ -80,7 +71,9 @@ def getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h):
                 
         p = points_s[k] # corent point
 
-        cv2.putText(frame, text, (20, 60), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 0), 2)
+        cv2.putText(frame, text1, (40, 60), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 0), 2)
+        cv2.putText(frame, text2, (30, 90), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 0), 2)
+        cv2.putText(frame, text3, (120, 120), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 0), 2)
         cv2.circle(frame, (round(p[0]),round(p[1])), 10, (0,0,255), -1)
 
         resized_frame = cv2.resize(frame, (s_w,s_h), interpolation = cv2.INTER_AREA)
@@ -118,8 +111,10 @@ def getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h):
                 x_Pup = []
                 y_Pup = []
                 
-                text = "Посмотрите на точку, нажмите на экран для начала определения взгляда."
-                
+                text1 = ""
+                text2 = "Look at the red point and click on"
+                text3 = "the screen, please."
+                            
                 k += 1
                 i = 0
                 watchsOnPoint = False
@@ -140,31 +135,6 @@ def getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h):
     cv2.destroyAllWindows() 
     webcam.release()
 
-    #points_f.append(eye_cords_when_looking_on_screen)
     points_f.append(eye_cords_when_looking_on_center)
 
     return points_f
-
-'''
-s_w = 1910
-s_h = 960
-
-points_f = getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h)
-
-cx = points_f[len(points_f)-2][0]
-cy = points_f[len(points_f)-2][1]
-
-#c1x = points_f[len(points_f)-1][0]
-#c1y = points_f[len(points_f)-1][1]
-
-X = []
-Y = []
-for i in range(len(points_f)-1):
-    X.append(points_f[i][0])
-    Y.append(points_f[i][1])
-
-plt.scatter(X,Y,c="g")
-plt.scatter(cx,cy,c="r")
-#plt.scatter(c1x,c1y,c="b")
-plt.show()
-'''

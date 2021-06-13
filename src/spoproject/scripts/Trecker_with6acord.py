@@ -60,36 +60,22 @@ def resize_domain(n):
     pass
     
 
-
 def talker():
-    print("Enter into talker")
+    
     pub = rospy.Publisher('chatter', String, queue_size=10)
     rospy.init_node('talker', anonymous=True)
     rate = rospy.Rate(10) # 10hz
     
     (s_w, s_h) = get_screen_size(Gdk.Display.get_default())
-    s_w = 1910
-    s_h = 960
+    s_h = s_h - 100
 
+    # colibr
     points_f = getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h)
-
-    # if len(points_f) == 5:
-        
-    X = []
-    Y = []
-    for i in range(len(points_f)-1):
-        X.append(points_f[i][0])
-        Y.append(points_f[i][1])
-
-    plt.scatter(X,Y)
-    plt.show()
-
+    
     f_w = points_f[4][0] - points_f[2][0]
     f_h = points_f[3][1] - points_f[1][1]
 
     f_c = points_f[0]
-
-    # f_c = [((points_f[4][0] + points_f[2][0])/2 + f_c_1[0])/2, ((points_f[3][1] + points_f[1][1])/2 + f_c_1[1])]
 
     eye_cords_when_looking_on_centre = points_f[5]
     # colibr
@@ -170,24 +156,22 @@ def talker():
                       ((y_of_pupils_k - (f_c[1] + y_d))*frame.shape[0]/f_h) + frame.shape[0]/2]
 
             if x > frame.shape[1]:
-                x = frame.shape[1] - 40
+                x = frame.shape[1] - 11
             if x < 0:
-                x = 40
+                x = 11
             if y > frame.shape[0]:
-                y = frame.shape[0] - 40
+                y = frame.shape[0] - 11
             if y < 0:
-                y = 40
+                y = 11
                 
             cur_domain = domain(x, y, frame.shape[1], frame.shape[0])
-            # print(cur_domain)
+            
             if cur_domain != prev_domain:
                 pub.publish(str(cur_domain))
                 resize_domain(cur_domain)
                 rate.sleep()
             prev_domain = cur_domain
 
-            # cv2.circle(frame, (round(x),round(y)), 10, (0,0,255), -1)
-            # print([[x,y],[frame.shape[1],frame.shape[0]]])
             #################### effect
             xg = round(x)
             yg = round(y)
@@ -210,7 +194,6 @@ def talker():
 
             cv2.circle(frame, (round(f_c[0] + x_d),round(f_c[1] + y_d)), 5, (0,255,0), 2)
 
-
             j += 1
             
         resized_frame = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
@@ -229,7 +212,7 @@ def talker():
         
     cv2.destroyAllWindows() 
     webcam.release()
-    
+    pub.publish(str(6))
 
 
 if __name__ == '__main__':
