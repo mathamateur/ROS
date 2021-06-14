@@ -11,6 +11,11 @@ from std_msgs.msg import String
 list_audio = []
 
 def play_chord(n):
+
+    """
+    The function plays the chord corresponding to the message received.
+    """
+    
     global list_audio
     folder = 'mp3_chords'
     chords = os.listdir(folder)
@@ -20,6 +25,11 @@ def play_chord(n):
     play(s)
 
 def callback(data):
+
+    """
+    The callback function of the subscriber.
+    """
+    
     global list_audio
     
     rospy.loginfo(rospy.get_caller_id() + ' OH, I heard %s', data.data)
@@ -32,6 +42,11 @@ def callback(data):
 
 
 def listener():
+
+    """
+    This function sets up the subsciber rosnode "listner" and subscibes
+    on the topik "chatter".
+    """
 
     rospy.init_node('listener', anonymous=True)
 

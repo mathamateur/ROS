@@ -9,6 +9,12 @@ def start_process(cmd):
 
 def start():
 
+    """
+    This function starts roscore, the subscriber node (listener.py)
+    and the publisher node (Trecker_with6acord.py) in three parallel
+    subprocesses.
+    """
+
     master = start_process(['/opt/ros/noetic/bin/roscore'])
 
     listener_node = start_process(['rosrun', 'spoproject', 'listener.py'])

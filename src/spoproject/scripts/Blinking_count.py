@@ -13,6 +13,14 @@ def click(event, x, y, flags, param):
 
 
 def blink():
+
+    """
+    The function is intended for counting the number of blinking provides.
+
+    Return:
+        approximate number of blinking provides.
+    """
+    
     global start
     start  = False
     gaze = GazeTracking()
