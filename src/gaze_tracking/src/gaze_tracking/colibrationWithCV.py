@@ -26,14 +26,13 @@ def getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h):
 
     global watchsOnPoint
     
-    
-    cv2.namedWindow("Colibration") # cv2.WINDOW_KEEPRATIO
-    
-    webcam = cv2.VideoCapture(0)
-    cv2.setMouseCallback("Colibration", click)
-
     gaze = GazeTracking() # object that is used for gaze traking
     
+    webcam = cv2.VideoCapture(0)
+    cv2.namedWindow("Colibration",cv2.WND_PROP_FULLSCREEN) # cv2.WINDOW_KEEPRATIO
+    cv2.setWindowProperty("Colibration", 0, cv2.cv2.WINDOW_FULLSCREEN)
+    cv2.setMouseCallback("Colibration", click)
+
     points_f = [] # cords of domain that we are looking for
 
     text1 = "Let's pass through the calibration"

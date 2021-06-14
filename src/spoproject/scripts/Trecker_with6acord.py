@@ -72,8 +72,8 @@ def talker():
     # colibr
     points_f = getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h)
     
-    f_w = points_f[4][0] - points_f[2][0]
-    f_h = points_f[3][1] - points_f[1][1]
+    f_w = points_f[4][0] - points_f[2][0] - 3
+    f_h = points_f[3][1] - points_f[1][1] - 2
 
     f_c = points_f[0]
 
@@ -100,8 +100,9 @@ def talker():
 
     # treck
     gaze = GazeTracking()
-    cv2.namedWindow("Treking")
     webcam = cv2.VideoCapture(0)
+    cv2.namedWindow("Treking", cv2.WND_PROP_FULLSCREEN)
+    cv2.setWindowProperty("Treking", 0, cv2.cv2.WINDOW_FULLSCREEN)
     #t reck
 
     # kalman
