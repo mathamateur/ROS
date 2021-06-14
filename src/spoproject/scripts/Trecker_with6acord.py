@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 
 
@@ -15,6 +14,7 @@ from gi import require_version
 require_version("Gdk", "3.0")
 from gi.repository import Gdk
 
+
 def get_screen_size(display):
     mon_geoms = [
         display.get_monitor(i).get_geometry()
@@ -28,6 +28,7 @@ def get_screen_size(display):
 
     return x1 - x0, y1 - y0
 
+
 def domain(x, y, s_w, s_h):
     if x < s_w / 3:
         return 0 if y < s_h / 2 else 3
@@ -35,6 +36,7 @@ def domain(x, y, s_w, s_h):
         return 1 if y < s_h / 2 else 4
     if x > s_w * 2 / 3:
         return 2 if y < s_h / 2 else 5
+
 
 def drowLine(cord,orient,size):
         global cv2
@@ -103,7 +105,7 @@ def talker():
     webcam = cv2.VideoCapture(0)
     cv2.namedWindow("Treking", cv2.WND_PROP_FULLSCREEN)
     cv2.setWindowProperty("Treking", 0, cv2.cv2.WINDOW_FULLSCREEN)
-    #t reck
+    #treck
 
     # kalman
     K = 0.1
@@ -127,7 +129,8 @@ def talker():
         left_eye = gaze.eye_left
         right_eye = gaze.eye_right
 
-        if right_pupil is not None and left_pupil is not None and left_eye is not None and right_eye is not None:
+        if right_pupil is not None and left_pupil is not None and 
+           left_eye is not None and right_eye is not None:
             x_of_pupils = (right_pupil[0] + left_pupil[0]) / 2
             y_of_pupils = (right_pupil[1] + left_pupil[1]) / 2
 
@@ -221,16 +224,4 @@ if __name__ == '__main__':
         talker()
     except rospy.ROSInterruptException:
         pass
-
-
-
-
-
-
-
-
-
-
-
-
 
