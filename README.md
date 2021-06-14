@@ -26,3 +26,5 @@
 `pip install -r requirements.txt`
 * Запустить Interface.py
 * Получать удовольствие
+#### Запуск сайта с документацией:
+* https://cdn.rawgit.com/x-sanchez/ROS/main/html/index.html
