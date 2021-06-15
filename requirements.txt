@@ -1,7 +1,9 @@
 PyGObject==3.40.1
+pydub==0.25.1
+catkin_pkg==0.4.23
+matplotlib==3.3.2
+dlib==19.16.0
+rospy==1.15.11
 numpy==1.19.5
 opencv_python==3.4.8.29
-dlib==19.16.0
-pygame==2.0.1
-matplotlib==3.3.2
 PyQt5==5.15.4

@@ -129,8 +129,8 @@ def talker():
         left_eye = gaze.eye_left
         right_eye = gaze.eye_right
 
-        if right_pupil is not None and left_pupil is not None and 
-           left_eye is not None and right_eye is not None:
+        if (right_pupil is not None and left_pupil is not None and 
+           left_eye is not None and right_eye is not None):
             x_of_pupils = (right_pupil[0] + left_pupil[0]) / 2
             y_of_pupils = (right_pupil[1] + left_pupil[1]) / 2
 
