@@ -5,12 +5,7 @@ matplotlib==3.3.2
 dlib==19.16.0
 rospy==1.15.11
 numpy==1.19.5
-<<<<<<< HEAD
 opencv_python==3.4.8.29
-=======
-opencv_python==3.9.2
-dlib==19.16.0
 pygame==2.0.1
 matplotlib==3.3.2
->>>>>>> 69b42c5813d88739b5cdd23b51293812dbf6db82
 PyQt5==5.15.4
