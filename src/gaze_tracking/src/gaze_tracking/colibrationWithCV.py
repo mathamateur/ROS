@@ -16,20 +16,28 @@ def click(event, x, y, flags, param):
         watchsOnPoint = True
 
 def getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h):
-    # получаю границы области на фотографии
-    # в которой могут находиться зрачки объекта, 
-    # когда он смотрит куда-то на экран
-    # аргументы это размеры экрана
-    # предполагаю что эта область прямоугольная
-    # возвращает центр этой облости (координаты зрачков на фото во время того
-    # как они смотрят в центр экрана) и, аналогично края.
+
+    """
+    This function is intended for the calibration.
+    It provides information about position of pupils on a frame
+    when looking on the define point of the screen.
+    This information is then used for avaluating the size of the domain in which pupils can be
+    and the coordinats of the pupils when looking on the center of the screen.
+
+    Arguments:
+        s_w: width of the screen; s_h: height of the screen
+
+    Return:
+        List of the coordinates of pupils corresponding to the following cases:
+        [looking on the center, looking on the top, looking on the right, on the bottom, on the left]
+    """
 
     global watchsOnPoint
     
     gaze = GazeTracking() # object that is used for gaze traking
     
     webcam = cv2.VideoCapture(0)
-    cv2.namedWindow("Colibration",cv2.WND_PROP_FULLSCREEN) # cv2.WINDOW_KEEPRATIO
+    cv2.namedWindow("Colibration",cv2.WND_PROP_FULLSCREEN)
     cv2.setWindowProperty("Colibration", 0, cv2.cv2.WINDOW_FULLSCREEN)
     cv2.setMouseCallback("Colibration", click)
 
@@ -122,11 +130,9 @@ def getInhabitationOfPupilsWhenLookingOnScreen(s_w,s_h):
             break
 
     if len(x_face) == 0 or len(y_face) == 0:
-        #eye_cords_when_looking_on_screen = [0,0]
+        
         eye_cords_when_looking_on_center = [0,0]
     else:
-        # avg coordinats of point between eyes
-        #eye_cords_when_looking_on_screen = [sum(x_face)/len(x_face),sum(y_face)/len(y_face)]
 
         eye_cords_when_looking_on_center = [sum(x_face_look_center)/len(x_face_look_center),sum(y_face_look_center)/len(y_face_look_center)]
 

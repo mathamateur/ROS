@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 import rospy
 from std_msgs.msg import String
 
@@ -16,6 +15,17 @@ from gi.repository import Gdk
 
 
 def get_screen_size(display):
+
+    """
+    This function provides the width and the height of the screen.
+
+    Arguments:
+        object Gdk.Display.get_default()
+
+    Return:
+        touple (width, height)
+    """
+    
     mon_geoms = [
         display.get_monitor(i).get_geometry()
         for i in range(display.get_n_monitors())
@@ -30,6 +40,17 @@ def get_screen_size(display):
 
 
 def domain(x, y, s_w, s_h):
+
+    """
+    The function estimates the rectangle that includes the given point.
+
+    Arguments:
+        x and y coordinates of the point and width and height of the screen
+
+    Return:
+        integer 0 <= n <= 5
+    """
+    
     if x < s_w / 3:
         return 0 if y < s_h / 2 else 3
     if s_w / 3 < x < s_w * 2 / 3:
@@ -39,6 +60,17 @@ def domain(x, y, s_w, s_h):
 
 
 def drowLine(cord,orient,size):
+
+    """
+    The function provides the coordinates of the line.
+    
+    Arguments:
+        starting x or y coordinate of the line, orientation
+        (string. "vert" or "hor") and length of the line
+
+    Return:
+        list of two points (start and end of the line)
+    """
         global cv2
         
         if orient == "vert":
@@ -55,14 +87,19 @@ def drowLine(cord,orient,size):
             print("not hor not vert")
             return 0
         
-        return [(x1, y1), (x2, y2)]
-
-
-def resize_domain(n):
-    pass
-    
+        return [(x1, y1), (x2, y2)] 
 
 def talker():
+
+    """
+    This function tracks the user's gaze.
+    First it runs the colibration.
+    Using the information provided by colibration function it estimates
+    the place on the screen where the user is looking.
+    Whith frequence of 10 Hz the function publishes on the topic "chatter"
+    the string representation of integer 0 <= n <= 5 which coresponds to
+    the rectangle in which the user is looking.
+    """
     
     pub = rospy.Publisher('chatter', String, queue_size=10)
     rospy.init_node('talker', anonymous=True)
@@ -116,6 +153,7 @@ def talker():
     prev_domain = 1
     cur_domain = 1
     list_audio = []
+    
     while cv2.getWindowProperty("Treking", cv2.WND_PROP_VISIBLE) == 1:
         _, frame = webcam.read()
 
@@ -172,7 +210,6 @@ def talker():
             
             if cur_domain != prev_domain:
                 pub.publish(str(cur_domain))
-                resize_domain(cur_domain)
                 rate.sleep()
             prev_domain = cur_domain
 
