@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Eye-Bit Project: Eye-Bit Project.Trecker_with6acord Namespace Reference</title>
+<title>Eye-Bit Project Documentation: Eye-Bit Project.Trecker_with6acord Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -20,8 +20,9 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="уе.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Eye-Bit Project
+   <div id="projectname">Eye-Bit Project Documentation
    </div>
   </td>
  </tr>
@@ -75,12 +76,16 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:add65dca9112d85eeb99a7f8b5929992a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_eye-_bit_01_project_1_1_trecker__with6acord.html#add65dca9112d85eeb99a7f8b5929992a">get_screen_size</a> (display)</td></tr>
+<tr class="memdesc:add65dca9112d85eeb99a7f8b5929992a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides the width and the height of the screen.  <a href="namespace_eye-_bit_01_project_1_1_trecker__with6acord.html#add65dca9112d85eeb99a7f8b5929992a">More...</a><br /></td></tr>
 <tr class="separator:add65dca9112d85eeb99a7f8b5929992a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a746d72dd6d8bc8009d19b5093edf16"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_eye-_bit_01_project_1_1_trecker__with6acord.html#a7a746d72dd6d8bc8009d19b5093edf16">domain</a> (x, y, s_w, s_h)</td></tr>
+<tr class="memdesc:a7a746d72dd6d8bc8009d19b5093edf16"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function estimates the rectangle that includes the given point.  <a href="namespace_eye-_bit_01_project_1_1_trecker__with6acord.html#a7a746d72dd6d8bc8009d19b5093edf16">More...</a><br /></td></tr>
 <tr class="separator:a7a746d72dd6d8bc8009d19b5093edf16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1fb2c441a402d2b911ec080a7820f17"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_eye-_bit_01_project_1_1_trecker__with6acord.html#af1fb2c441a402d2b911ec080a7820f17">drowLine</a> (cord, orient, size)</td></tr>
+<tr class="memdesc:af1fb2c441a402d2b911ec080a7820f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function provides the coordinates of the line.  <a href="namespace_eye-_bit_01_project_1_1_trecker__with6acord.html#af1fb2c441a402d2b911ec080a7820f17">More...</a><br /></td></tr>
 <tr class="separator:af1fb2c441a402d2b911ec080a7820f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca48bfc6ed0005957ce31862bc79df61"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_eye-_bit_01_project_1_1_trecker__with6acord.html#aca48bfc6ed0005957ce31862bc79df61">talker</a> ()</td></tr>
+<tr class="memdesc:aca48bfc6ed0005957ce31862bc79df61"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function tracks the user's gaze.  <a href="namespace_eye-_bit_01_project_1_1_trecker__with6acord.html#aca48bfc6ed0005957ce31862bc79df61">More...</a><br /></td></tr>
 <tr class="separator:aca48bfc6ed0005957ce31862bc79df61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -121,14 +126,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">The function estimates the rectangle that includes the given point.
 
-Arguments:
-    x and y coordinates of the point and width and height of the screen
+<p>The function estimates the rectangle that includes the given point. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td>x and y coordinates of the point and width and height of the screen</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>: integer 0 &lt;= n &lt;= 5 </dd></dl>
 
-Return:
-    integer 0 &lt;= n &lt;= 5
-</pre> 
 </div>
 </div>
 <a id="af1fb2c441a402d2b911ec080a7820f17"></a>
@@ -162,15 +169,16 @@ Return:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">The function provides the coordinates of the line.
 
-Arguments:
-    starting x or y coordinate of the line, orientation
-    (string. "vert" or "hor") and length of the line
+<p>The function provides the coordinates of the line. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td>starting x or y coordinate of the line, orientation (string. "vert" or "hor") and length of the line</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>: list of two points (start and end of the line) </dd></dl>
 
-Return:
-    list of two points (start and end of the line)
-</pre> 
 </div>
 </div>
 <a id="add65dca9112d85eeb99a7f8b5929992a"></a>
@@ -188,14 +196,16 @@ Return:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">This function provides the width and the height of the screen.
 
-Arguments:
-    object Gdk.Display.get_default()
+<p>This function provides the width and the height of the screen. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td>object Gdk.Display.get_default()</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>: touple (width, height) </dd></dl>
 
-Return:
-    touple (width, height)
-</pre> 
 </div>
 </div>
 <a id="aca48bfc6ed0005957ce31862bc79df61"></a>
@@ -212,14 +222,10 @@ Return:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">This function tracks the user's gaze.
-First it runs the colibration.
-Using the information provided by colibration function it estimates
-the place on the screen where the user is looking.
-Whith frequence of 10 Hz the function publishes on the topic "chatter"
-the string representation of integer 0 &lt;= n &lt;= 5 which coresponds to
-the rectangle in which the user is looking.
-</pre> 
+
+<p>This function tracks the user's gaze. </p>
+<p>First it runs the colibration. Using the information provided by colibration function it estimates the place on the screen where the user is looking. Whith frequence of 10 Hz the function publishes on the topic "chatter" the string representation of integer 0 &lt;= n &lt;= 5 which coresponds to the rectangle in which the user is looking. </p>
+
 </div>
 </div>
 </div><!-- contents -->

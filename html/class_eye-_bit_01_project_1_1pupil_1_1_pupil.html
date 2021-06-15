@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Eye-Bit Project: Eye-Bit Project.pupil.Pupil Class Reference</title>
+<title>Eye-Bit Project Documentation: Eye-Bit Project.pupil.Pupil Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -20,8 +20,9 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="уе.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Eye-Bit Project
+   <div id="projectname">Eye-Bit Project Documentation
    </div>
   </td>
  </tr>
@@ -74,6 +75,9 @@ $(function() {
 <div class="title">Eye-Bit Project.pupil.Pupil Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class detects the iris of an eye and estimates the position of the pupil.  
+ <a href="class_eye-_bit_01_project_1_1pupil_1_1_pupil.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Eye-Bit Project.pupil.Pupil:</div>
 <div class="dyncontent">
@@ -86,11 +90,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5b843220b8148ce20cf304d4d26fd577"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_eye-_bit_01_project_1_1pupil_1_1_pupil.html#a5b843220b8148ce20cf304d4d26fd577">__init__</a> (self, eye_frame, <a class="el" href="class_eye-_bit_01_project_1_1pupil_1_1_pupil.html#a4c566115351410e1e909fbc252568d0b">threshold</a>)</td></tr>
 <tr class="separator:a5b843220b8148ce20cf304d4d26fd577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa78b45c32248e653ae31538079e5a3ae"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_eye-_bit_01_project_1_1pupil_1_1_pupil.html#aa78b45c32248e653ae31538079e5a3ae">detect_iris</a> (self, eye_frame)</td></tr>
+<tr class="memdesc:aa78b45c32248e653ae31538079e5a3ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects the iris and estimates the position of the iris by calculating the centroid.  <a href="class_eye-_bit_01_project_1_1pupil_1_1_pupil.html#aa78b45c32248e653ae31538079e5a3ae">More...</a><br /></td></tr>
 <tr class="separator:aa78b45c32248e653ae31538079e5a3ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a9d3df13b73e7c531f65693be7f2b097f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_eye-_bit_01_project_1_1pupil_1_1_pupil.html#a9d3df13b73e7c531f65693be7f2b097f">image_processing</a> (eye_frame, <a class="el" href="class_eye-_bit_01_project_1_1pupil_1_1_pupil.html#a4c566115351410e1e909fbc252568d0b">threshold</a>)</td></tr>
+<tr class="memdesc:a9d3df13b73e7c531f65693be7f2b097f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs operations on the eye frame to isolate the iris.  <a href="class_eye-_bit_01_project_1_1pupil_1_1_pupil.html#a9d3df13b73e7c531f65693be7f2b097f">More...</a><br /></td></tr>
 <tr class="separator:a9d3df13b73e7c531f65693be7f2b097f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -105,9 +111,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a9e486f0a29f771232bf9b9af761819a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">This class detects the iris of an eye and estimates
-the position of the pupil
-</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<div class="textblock"><p>This class detects the iris of an eye and estimates the position of the pupil. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5b843220b8148ce20cf304d4d26fd577"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5b843220b8148ce20cf304d4d26fd577">&#9670;&nbsp;</a></span>__init__()</h2>
 
@@ -168,12 +173,10 @@ the position of the pupil
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Detects the iris and estimates the position of the iris by
-calculating the centroid.
 
-Arguments:
-    eye_frame (numpy.ndarray): Frame containing an eye and nothing else
-</pre> 
+<p>Detects the iris and estimates the position of the iris by calculating the centroid. </p>
+<dl class="section return"><dt>Returns</dt><dd>:eye_frame (numpy.ndarray): Frame containing an eye and nothing else </dd></dl>
+
 </div>
 </div>
 <a id="a9d3df13b73e7c531f65693be7f2b097f"></a>
@@ -209,15 +212,17 @@ Arguments:
   </tr>
 </table>
 </div><div class="memdoc">
-<pre class="fragment">Performs operations on the eye frame to isolate the iris
 
-Arguments:
-    eye_frame (numpy.ndarray): Frame containing an eye and nothing else
-    threshold (int): Threshold value used to binarize the eye frame
+<p>Performs operations on the eye frame to isolate the iris. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">eye_frame</td><td>(numpy.ndarray): Frame containing an eye and nothing else </td></tr>
+    <tr><td class="paramname">threshold</td><td>(int): Threshold value used to binarize the eye frame</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>:A frame with a single element representing the iris </dd></dl>
 
-Returns:
-    A frame with a single element representing the iris
-</pre> 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
