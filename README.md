@@ -29,4 +29,4 @@
 
 6) Запустить интерфейс из этой папки командой python Interface.py
 #### Запуск сайта с документацией:
- https://cdn.rawgit.com/x-sanchez/ROS/main/html/index.html
+https://combinatronics.com/x-sanchez/ROS/main/html/index.html
